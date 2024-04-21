@@ -14,6 +14,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
+  Color selectedItem = Colors.blue;
+  Color unselectedItem = Colors.grey;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,14 +34,20 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               label: 'Home',
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(
+                CupertinoIcons.home,
+                color: index == 0 ? selectedItem : unselectedItem,
+              ),
             ),
             BottomNavigationBarItem(
               label: 'Stats',
-              icon: Icon(CupertinoIcons.graph_square_fill),
+              icon: Icon(
+                CupertinoIcons.graph_square_fill,
+                color: index == 1 ? selectedItem : unselectedItem,
+              ),
             ),
           ],
         ),
@@ -57,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Theme.of(context).colorScheme.secondary,
                 Theme.of(context).colorScheme.tertiary,
                 Theme.of(context).colorScheme.primary,
-              ], transform: const GradientRotation(pi / 4)),
+              ], transform: const GradientRotation(pi / 40)),
             ),
             child: const Icon(CupertinoIcons.add)),
       ),
