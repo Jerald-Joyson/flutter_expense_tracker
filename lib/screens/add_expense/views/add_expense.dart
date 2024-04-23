@@ -301,7 +301,9 @@ class _AddExpenseState extends State<AddExpense> {
                                                       CircularProgressIndicator(),
                                                 )
                                               : TextButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
                                                   style: TextButton.styleFrom(
                                                       backgroundColor:
                                                           Colors.black,
