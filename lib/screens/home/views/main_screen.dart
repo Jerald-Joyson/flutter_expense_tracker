@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/data.dart';
 
+import '../../../data/data.dart';
 import 'amount_card.dart';
 
 class MainScreen extends StatelessWidget {

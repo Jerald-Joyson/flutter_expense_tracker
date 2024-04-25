@@ -1,10 +1,16 @@
 import 'dart:math';
 
+import 'package:expense_repository/expense_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/add_expense/views/add_expense.dart';
-import 'package:flutter_application_1/screens/home/views/main_screen.dart';
-import 'package:flutter_application_1/screens/stats/stats.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../add_expense/blocs/create_categorybloc/create_category_bloc.dart';
+import '../../add_expense/blocs/get_categories_bloc/get_categories_bloc.dart';
+import '../../add_expense/views/add_expense.dart';
+import '../../stats/stats.dart';
+import 'main_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,9 +64,27 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                  builder: (BuildContext context) => const AddExpense()));
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) =>
+                        CreateCategoryBloc(FirebaseExpenseRepo()),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        GetCategoriesBloc(FirebaseExpenseRepo())
+                          ..add(GetCategories()),
+                  ),
+                  // BlocProvider(
+                  //   create: (context) => CreateExpenseBloc(FirebaseExpenseRepo()),
+                  // ),
+                ],
+                child: const AddExpense(),
+              ),
+            ),
+          );
         },
         shape: const CircleBorder(),
         child: Container(
